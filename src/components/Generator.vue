@@ -1,77 +1,81 @@
 <template>
   <div id="generator">
-      <h1 id="uuid">
-          {{uuid}} 
-        <button
-            id="copyButton"
-            @click="copy()"
-            ref="copy"
-        >
-            Copy
-        </button>
-      </h1>
+    <h1 id="uuid">
+      <span id="uuidSpan">
+        {{uuid}} 
+      </span>  
       <button
-        class="btn-grad"
-        @click="generate()"
+        id="copyButton"
+        @click="copy()"
+        ref="copy"
+      >
+      Copy
+    </button>
+    </h1>
+    <button
+      class="btn-grad"
+      @click="generate()"
     >
-          Generate new UUID
-      </button>
-      <br>
-      <button
-        class="versionButton"
-        id="versionOne"
-        @click="changeVersion(1)"
-        ref="versionOne"
-      >
-          Version 1
-      </button>
-      <button
-        class="versionButton"
-        id="versionFour"
-        @click="changeVersion(4)"
-        ref="versionFour"
-      >
-          Version 4
-      </button>
+      Generate new UUID
+    </button>
+    <br>
+    <button
+      class="versionButton"
+      id="versionOne"
+      @click="changeVersion(1)"
+      ref="versionOne"
+    >
+      Version 1
+    </button>
+    <button
+      class="versionButton"
+      id="versionFour"
+      @click="changeVersion(4)"
+      ref="versionFour"
+    >
+      Version 4
+    </button>
 
-      <br><br><br>
+    <br><br><br>
 
-      <button
-        class="btn-grad-blue"
-        @click="generateMultple()"
-      >
-          Generate Multiple
-      </button>
+    <button
+      class="btn-grad-blue"
+      @click="generateMultple()"
+    >
+      Generate Multiple
+    </button>
 
-      <input
-        type="number"
-        placeholder="Amount"
-        id="amount"
-        v-model="amount"
-        @keydown.enter="generateMultple()"
-      >
-      <span 
-        class="error"
-        v-if="error"
-      >
-          Max. 5000
-      </span>
+    <input
+      type="number"
+      placeholder="Amount"
+      id="amount"
+      v-model="amount"
+      @keydown.enter="generateMultple()"
+    >
+    <span 
+      class="error"
+      v-if="error"
+    >
+      Max. 5000
+    </span>
 
     <br><br><br>
 
     <span
-        @click="createPDF()"
-        v-if="allUuids.length>0"
-        id="download"
+      @click="createPDF()"
+      v-if="allUuids.length>0"
+      id="download"
     >   
-        Download as PDF <img src="../../public/img/download.png" alt="download icon" id="downloadIcon">
+      Download as PDF <img src="../../public/img/download.png" alt="download icon" id="downloadIcon">
     </span>
 
     <br>
 
     <ul v-for="(uuid, uuidIndex) in allUuids" :key="uuidIndex" id="idList">
         <li>
-            {{uuid}}
+            <span id="listUuid">
+                {{uuid}}
+            </span>
             <button
                 id="smallCopyButton"
                 @click="copyFromAll(uuidIndex)"
@@ -325,7 +329,31 @@ export default {
             color: #fff;
             text-decoration: none;
           }
-         
+    
+    @media (max-width: 1110px) {
+        #uuidSpan::after{
+            content: "\a\a";
+            white-space: pre;
+        }
+        #copyButton {
+            position: relative;
+            left: 0rem;
+        }
+        #uuid {
+            font-size: 1.3rem;
+            line-height: 1.3;
+        }
+    }
+    @media (max-width: 500px) {
+        #listUuid {
+            font-size: 0.7rem;
+        }
+        #smallCopyButton {
+            width: 3.5rem;
+            height: 1.7rem;
+            font-size: 1rem;
+        }
+    }
     @media (max-width: 700px) {
         body {
             margin: 1rem;
