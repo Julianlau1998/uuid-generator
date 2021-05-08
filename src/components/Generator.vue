@@ -194,7 +194,7 @@ export default {
     }
     #copyButton,
     #smallCopyButton {
-        width: 5em;
+        width: 6rem;
         height: 2.5rem;
         position: relative;
         top: -0.55rem;
@@ -214,7 +214,7 @@ export default {
         border: 2px solid #28B463;
     }
     #smallCopyButton {
-        width: 4rem;
+        width: 5.5rem;
         height: 2rem;
         top: 0;
         border: 2px solid white;
@@ -263,7 +263,7 @@ export default {
         text-decoration: none;
     }
     .versionButton {
-        width: 7rem;
+        width: 8rem;
         height: 2rem;
         font-size: 1.2rem;
         background: transparent;
@@ -332,26 +332,44 @@ export default {
     
     @media (max-width: 1110px) {
         #uuidSpan::after{
-            content: "\a\a";
+            content: "\a";
             white-space: pre;
         }
         #copyButton {
             position: relative;
             left: 0rem;
         }
+    }
+    @media (max-width: 700px) {
+        #uuidSpan::after{
+            content: "\a\a";
+            white-space: pre;
+        }
         #uuid {
-            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            font-size: 1.9rem;
             line-height: 1.3;
         }
-    }
-    @media (max-width: 500px) {
         #listUuid {
             font-size: 0.7rem;
+        }
+        #copyButton {
+            position: relative;
+            top: -0.8rem;
         }
         #smallCopyButton {
             width: 3.5rem;
             height: 1.7rem;
             font-size: 1rem;
+        }
+        .versionButton {
+             margin: 1rem 0.5rem 0.5rem 1rem;
+        }
+        .btn-grad {
+            margin-top: 1rem;
+        }
+        .btn-grad-blue {
+            margin-top: 1.5rem;
         }
     }
     @media (max-width: 700px) {

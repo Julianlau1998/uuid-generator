@@ -19,4 +19,14 @@ h2 {
   font-size: 2rem;
   margin-top: -1.5rem;
 }
+@media (max-width: 700px) {
+  h1 {
+    margin-top: 2.5rem;
+    font-size: 2.7rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+}
+
 </style>
