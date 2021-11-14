@@ -11,6 +11,14 @@
       >
       Copy
     </button>
+    <img
+        v-if="shareAvailable"
+        src="../../public/img/share.png"
+        alt="share"
+        @click="share"
+        class="share"
+        ref="share"
+    >
     </h1>
     <button
       class="btn-grad"
@@ -56,7 +64,7 @@
       class="error"
       v-if="error"
     >
-      Max. 5000
+      Max. 4999
     </span>
 
     <br><br><br>
@@ -102,11 +110,15 @@ export default {
             installUUID: uuid.v1(),
             amount: 5,
             allUuids: [],
-            error: false
+            error: false,
+            shareAvailable: false
         }
     },
     created () {
         this.uuid = this.$uuid.v4()
+        if(navigator.share !== undefined) {
+            this.shareAvailable = true
+        }
     },
     methods: {
         async copy () {
@@ -181,6 +193,12 @@ export default {
                 }
                 doc.save(pdfName + '.pdf');  
             } 
+        },
+        share () {
+            navigator.share({
+                "title": 'UUID',
+                "text": this.uuid
+            })
         }
     }
 }
@@ -297,6 +315,14 @@ export default {
     margin: 0;
     }
 
+    .share {
+        cursor: pointer;
+        width: 5rem;
+        position: relative;
+        top: 1.5rem;
+        left: 1rem;
+    }
+
     /* Firefox */
     input[type=number] {
     -moz-appearance: textfield;
@@ -331,16 +357,24 @@ export default {
           }
     
     @media (max-width: 1110px) {
+        .share {
+            top: 1.5rem;
+            left: 2.5rem;
+        }
         #uuidSpan::after{
             content: "\a";
             white-space: pre;
         }
         #copyButton {
             position: relative;
-            left: 0rem;
+            left: 2.5rem;
         }
     }
     @media (max-width: 700px) {
+        .share {
+            top: -1.6rem;
+            left: 2.4rem;
+        }
         #uuidSpan::after{
             content: "\a\a";
             white-space: pre;
@@ -349,13 +383,14 @@ export default {
             margin-top: 2.5rem;
             font-size: 1.9rem;
             line-height: 1.3;
+            margin-bottom: 0rem;
         }
         #listUuid {
             font-size: 0.7rem;
         }
         #copyButton {
             position: relative;
-            top: -0.8rem;
+            top: -3.8rem;
         }
         #smallCopyButton {
             width: 3.5rem;
@@ -366,7 +401,7 @@ export default {
              margin: 1rem 0.5rem 0.5rem 1rem;
         }
         .btn-grad {
-            margin-top: 1rem;
+            margin-top: -4rem;
         }
         .btn-grad-blue {
             margin-top: 1.5rem;
