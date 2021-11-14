@@ -2,15 +2,24 @@
   <div id="app">
     <topNav />
     <router-view/>
+    <div id="adsgoeshere" style="background: #1d1f29; padding-top:60px; text-align: center;" v-html="adsenseContent"></div>
   </div>
 </template>
 
 <script>
 import topNav from './components/TopNav.vue'
 export default {
-components: {
-  topNav
-} 
+  components: {
+    topNav
+  },
+  data () {
+    return {
+       adsenseContent: ''
+    }
+  },
+  mounted () {
+    this.adsenseContent = document.getElementById('divadsensedisplaynone').innerHTML
+  }
 }
 </script>
 
