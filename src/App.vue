@@ -2,7 +2,7 @@
   <div id="app">
     <topNav />
     <router-view/>
-    <div id="adsgoeshere" style="background: #1d1f29; padding-top:60px; text-align: center;" v-html="adsenseContent"></div>
+    <div id="adsgoeshere" style="background: #000000; padding-top:60px; text-align: center;" v-html="adsenseContent"></div>
   </div>
 </template>
 
