@@ -111,7 +111,7 @@ export default {
             amount: 5,
             allUuids: [],
             error: false,
-            shareAvailable: false
+            shareAvailable: true
         }
     },
     created () {
