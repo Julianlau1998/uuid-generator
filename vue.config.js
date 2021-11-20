@@ -1,9 +1,9 @@
 module.exports = {
     pwa: {
       name: 'UUID Generator',
-      themeColor: '#000000',
-      msTileColor: '#000000',
-      backgroundColor: '#000000',
+      themeColor: '#2a343c',
+      msTileColor: '#1a1c1e',
+      backgroundColor: '#1a1c1e',
       appleMobileWebAppCapable: 'yes',
       appleMobileWebAppStatusBarStyle: 'default',
     },

@@ -1,98 +1,108 @@
 <template>
   <div id="generator">
-    <h1 id="uuid">
-      <span id="uuidSpan">
-        {{uuid}} 
-      </span>  
-      <button
-        id="copyButton"
-        @click="copy()"
-        ref="copy"
-      >
-      Copy
-    </button>
-    <img
-        v-if="shareAvailable"
-        src="../../public/img/share.png"
-        alt="share"
-        @click="share"
-        class="share"
-        ref="share"
-    >
-    </h1>
-    <button
-      class="btn-grad"
-      @click="generate()"
-    >
-      Generate new UUID
-    </button>
-    <br>
-    <button
-      class="versionButton"
-      id="versionOne"
-      @click="changeVersion(1)"
-      ref="versionOne"
-    >
-      Version 1
-    </button>
-    <button
-      class="versionButton"
-      id="versionFour"
-      @click="changeVersion(4)"
-      ref="versionFour"
-    >
-      Version 4
-    </button>
-
-    <br><br><br>
-
-    <button
-      class="btn-grad-blue"
-      @click="generateMultple()"
-    >
-      Generate Multiple
-    </button>
-
-    <input
-      type="number"
-      placeholder="Amount"
-      id="amount"
-      v-model="amount"
-      @keydown.enter="generateMultple()"
-    >
-    <span 
-      class="error"
-      v-if="error"
-    >
-      Max. 4999
-    </span>
-
-    <br><br><br>
-
-    <span
-      @click="createPDF()"
-      v-if="allUuids.length>0"
-      id="download"
-    >   
-      Download as PDF <img src="../../public/img/download.png" alt="download icon" id="downloadIcon">
-    </span>
-
-    <br>
-
-    <ul v-for="(uuid, uuidIndex) in allUuids" :key="uuidIndex" id="idList">
-        <li>
-            <span id="listUuid">
-                {{uuid}}
-            </span>
+    <div class="top-part">
+        <span class="topnav">
+            UUID Generator
+        </span>
+        <i class="fas fa-ellipsis-v settings-icon" @click="settings=!settings"></i>
+        <span @click="linkToGooglePlay()" v-if="settings" class="settings">
+            Rate This App
+        </span>
+        <h1 id="uuid">
+            <span id="uuidSpan">
+                {{uuid}} 
+            </span>  
             <button
-                id="smallCopyButton"
-                @click="copyFromAll(uuidIndex)"
-                :ref=uuidIndex
+                id="copyButton"
+                @click="copy()"
+                ref="copy"
             >
-                Copy
+            Copy
             </button>
-        </li>
-    </ul>
+            <img
+                :style="shareAvailable ? 'opacity: 1;' : 'opacity: 0;'"
+                src="../../public/img/share.png"
+                alt="share"
+                @click="share"
+                class="share"
+                ref="share"
+            >
+            <div class="slider"></div>
+        </h1>
+    </div>
+    <div class="bottom-part">
+        <button
+            class="btn-grad"
+            @click="generate()"
+        >
+        Generate new UUID
+        </button>
+        <br>
+        <button
+            class="versionButton"
+            id="versionOne"
+            @click="changeVersion(1)"
+            ref="versionOne"
+        >
+            Version 1
+        </button>
+        <button
+            class="versionButton"
+            id="versionFour"
+            @click="changeVersion(4)"
+            ref="versionFour"
+        >
+            Version 4
+        </button>
+
+        <br><br><br>
+
+        <button
+            class="btn-grad-two"
+            @click="generateMultple()"
+        >
+            Generate Multiple
+        </button>
+
+        <input
+            type="number"
+            placeholder="Amount"
+            id="amount"
+            v-model="amount"
+            @keydown.enter="generateMultple()"
+        >
+        <span 
+            class="error"
+            v-if="error"
+        >
+            Max. 4999
+        </span>
+
+        <br>
+
+        <span
+            @click="createPDF()"
+            v-if="allUuids.length>0"
+            id="download"
+        >   
+            Download as PDF <img src="../../public/img/download.png" alt="download icon" id="downloadIcon">
+        </span>
+
+        <ul v-for="(uuid, uuidIndex) in allUuids" :key="uuidIndex" id="idList">
+            <li>
+                <span id="listUuid">
+                    {{uuid}}
+                </span>
+                <button
+                    id="smallCopyButton"
+                    @click="copyFromAll(uuidIndex)"
+                    :ref=uuidIndex
+                >
+                    Copy
+                </button>
+            </li>
+        </ul>
+    </div>
 
   </div>
 </template>
@@ -111,7 +121,8 @@ export default {
             amount: 5,
             allUuids: [],
             error: false,
-            shareAvailable: true
+            shareAvailable: false,
+            settings: false
         }
     },
     created () {
@@ -122,16 +133,14 @@ export default {
     },
     methods: {
         async copy () {
-            this.$refs.copy.style.border = '2px solid green'
+            this.$refs.copy.style.border = '2px solid #eedcff'
             this.$refs.copy.style.width = '6rem;'
             this.$refs.copy.innerHTML = 'Copied!'
             await navigator.clipboard.writeText(this.uuid);
         },
         async copyFromAll(uuidIndex) {
-            this.$refs[uuidIndex].style.border = '2px solid green'
-            this.$refs[uuidIndex].style.width = '6rem;'
-            this.$refs[uuidIndex].innerHTML = 'Copied!'
             await navigator.clipboard.writeText(this.allUuids[uuidIndex]);
+            this.$refs[uuidIndex][0].style.border = '2px solid #eedcff'
         },
         generate () {
             this.$refs.copy.innerHTML = 'Copy'
@@ -166,12 +175,12 @@ export default {
         changeVersion(number) {
             if (number===1) {
                 this.version = '1'
-                this.$refs.versionOne.style.border = '2px solid red'
-                this.$refs.versionFour.style.border = '1px solid white'
+                this.$refs.versionOne.style.border = '3px solid #eedcff'
+                this.$refs.versionFour.style.border = '2px solid white'
             } else {
                 this.version = '4'
-                this.$refs.versionFour.style.border = '2px solid red'
-                this.$refs.versionOne.style.border = '1px solid white'
+                this.$refs.versionFour.style.border = '3px solid #eedcff'
+                this.$refs.versionOne.style.border = '2px solid white'
             }
         },
         createPDF () {
@@ -199,16 +208,64 @@ export default {
                 "title": 'UUID',
                 "text": this.uuid
             })
+        },
+        linkToGooglePlay () {
+            window.location.href='https://play.google.com/store/apps/details?id=xyz.appmaker.fdfdjd&gl=DE'
         }
     }
 }
 </script>
 
 <style>
+    .topnav {
+        float: left;
+        font-size: 1.8rem;
+        padding: 0.8rem;
+    }
+    .settings-icon {
+        float: right;
+        padding: 1.2rem 1rem 1.2rem 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .settings {
+        position: absolute;
+        top: 2.9rem;
+        right: 1.6rem;
+        border: 2px solid white;
+        padding: 0.5rem;
+        font-size: 1.2rem;
+        background-color: #2a343c;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     #uuid {
         font-size: 3rem;
-        margin-top: 4rem;
         color: lightgray;
+        padding: 2.2rem 1rem 0 1rem;
+    }
+    .top-part {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        background-color: #2a343c;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        z-index: 2;
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+    }
+    .bottom-part {
+        position: absolute;
+        top: 10rem;
+        left: 0;
+        padding-top: 10rem;
+        width: 100vw;
+        min-height: 94vh;
+        background-color: #1a1c1e;
+        z-index: 1;
+
     }
     #copyButton,
     #smallCopyButton {
@@ -216,7 +273,7 @@ export default {
         height: 2.5rem;
         position: relative;
         top: -0.55rem;
-        left: 1rem;
+        left: 1.5rem;
         color: lightgray;
         background: transparent;
         border: 3px solid white;
@@ -226,10 +283,10 @@ export default {
         border-radius: 3px;
     }
     #copyButton:hover{
-        border: 3px solid #28B463;
+        border: 3px solid #eedcff;
     }
      #smallCopyButton:hover {
-        border: 2px solid #28B463;
+        border: 2px solid #eedcff;
     }
     #smallCopyButton {
         width: 5.5rem;
@@ -240,6 +297,7 @@ export default {
     #idList {
         list-style: none;
         margin-left: -2rem;
+        background-color: #1a1c1e;
     }
     #download {
         width: 10rem;
@@ -257,7 +315,7 @@ export default {
         top: 0.8rem;
     } 
 
-    .btn-grad {
+    /* .btn-grad {
         background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%)
     }
     .btn-grad {
@@ -276,10 +334,32 @@ export default {
       }
 
     .btn-grad:hover {
-        background-position: right center; /* change the direction of the change here */
+        background-position: right center;
         color: #fff;
         text-decoration: none;
+    } */
+    .btn-grad,
+    .btn-grad-two {
+        background-color: #cbe5ff;
+        border: none;
+        border-radius: 20px;
+        height: 3rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        z-index: 100;
+        cursor: pointer;
+        color: black;
     }
+    .btn-grad {
+        width: 15rem;
+    }
+    .btn-grad-two {
+        width: 11rem;
+        font-size: 1.1rem;
+        margin-right: 0.5rem;
+    }
+
     .versionButton {
         width: 8rem;
         height: 2rem;
@@ -294,7 +374,7 @@ export default {
         border: 1px solid white
     }
     #versionFour {
-        border: 2px solid red;
+        border: 3px solid #eedcff;
     }
     #amount {
         background: transparent;
@@ -329,11 +409,24 @@ export default {
     }
 
     .error {
-        color: red;
+        color: #eedcff;
+    }
+
+    .slider {
+        width: 1.5rem;
+        height: 0.3rem;
+        background-color: #cbe5ff;
+        opacity: 0.6;
+        z-index: 100;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        bottom: 0.4rem;
+        border-radius: 20px;
     }
 
 
-         .btn-grad-blue {
+         /* .btn-grad-blue {
              background-image: linear-gradient(to right, #314755 0%, #26a0da  51%, #314755  100%)
              }
          .btn-grad-blue {
@@ -351,10 +444,10 @@ export default {
           }
 
           .btn-grad-blue:hover {
-            background-position: right center; /* change the direction of the change here */
+            background-position: right center;
             color: #fff;
             text-decoration: none;
-          }
+          } */
     
     @media (max-width: 1110px) {
         .share {
@@ -401,15 +494,31 @@ export default {
              margin: 1rem 0.5rem 0.5rem 1rem;
         }
         .btn-grad {
-            margin-top: -4rem;
+            margin-top: 1rem;
         }
-        .btn-grad-blue {
+        .btn-grad-two {
             margin-top: 1.5rem;
         }
     }
     @media (max-width: 700px) {
         body {
             margin: 1rem;
+        }
+    }
+    @media (min-width: 700px) {
+        body {
+            margin: 1rem;
+        }
+        .btn-grad {
+            margin-top: 3rem;
+        }
+        .slider {
+            bottom: -1.3rem;
+        }
+    }
+    @media (min-width: 1100px) {
+        .btn-grad {
+            margin-top: -50rem !important;
         }
     }
 

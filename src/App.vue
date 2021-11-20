@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <topNav />
+    <!-- <topNav /> -->
     <router-view/>
     <div id="adsgoeshere" style="background: #000000; padding-top:60px; text-align: center;" v-html="adsenseContent"></div>
   </div>
 </template>
 
 <script>
-import topNav from './components/TopNav.vue'
+// import topNav from './components/TopNav.vue'
 export default {
   components: {
-    topNav
+    // topNav
   },
   data () {
     return {
