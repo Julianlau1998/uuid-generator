@@ -250,7 +250,7 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        width: 99.9vw;
+        width: 99.98vw;
         background-color: #2a343c;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
