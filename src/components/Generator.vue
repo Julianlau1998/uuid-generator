@@ -224,7 +224,9 @@ export default {
     }
     .settings-icon {
         float: right;
-        padding: 1.2rem 1rem 1.2rem 1rem;
+        position: relative;
+        top: 1.2rem;
+        right: 0.7rem;
         font-size: 1.5rem;
         cursor: pointer;
     }
@@ -248,13 +250,11 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100vw;
+        width: 99.9vw;
         background-color: #2a343c;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
         z-index: 2;
-        padding-left: 0.1rem;
-        padding-right: 0.1rem;
     }
     .bottom-part {
         position: absolute;
