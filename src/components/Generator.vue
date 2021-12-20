@@ -226,7 +226,7 @@ export default {
         float: right;
         position: relative;
         top: 1.2rem;
-        right: 0.7rem;
+        right: 1.1rem;
         font-size: 1.5rem;
         cursor: pointer;
     }
@@ -519,6 +519,12 @@ export default {
     @media (min-width: 1100px) {
         .btn-grad {
             margin-top: -50rem !important;
+        }
+         .settings-icon {
+            right: 1.7rem;
+        }
+        .settings {
+            right: 2.4rem;
         }
     }
 
