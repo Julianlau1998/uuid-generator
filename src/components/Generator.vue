@@ -4,7 +4,11 @@
         <span class="topnav">
             UUID Generator
         </span>
-        <i class="fas fa-ellipsis-v settings-icon" @click="settings=!settings"></i>
+        <i
+            class="fas fa-ellipsis-v settings-icon"
+            v-if="!iOS"
+            @click="settings=!settings"
+        ></i>
         <span @click="linkToGooglePlay()" v-if="settings" class="settings">
             Rate This App
         </span>
@@ -59,6 +63,7 @@
 
         <button
             class="btn-grad-two"
+            id="btn-multiple"
             @click="generateMultple()"
         >
             Generate Multiple
@@ -122,7 +127,8 @@ export default {
             allUuids: [],
             error: false,
             shareAvailable: false,
-            settings: false
+            settings: false,
+            iOS: false
         }
     },
     created () {
@@ -130,6 +136,14 @@ export default {
         if(navigator.share !== undefined) {
             this.shareAvailable = true
         }
+        this.iOS = [
+                'iPad Simulator',
+                'iPhone Simulator',
+                'iPod Simulator',
+                'iPad',
+                'iPhone',
+                'iPod'
+            ].includes(navigator.platform) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     },
     methods: {
         async copy () {
@@ -355,7 +369,7 @@ export default {
         width: 15rem;
     }
     .btn-grad-two {
-        width: 11rem;
+        min-width: 11rem;
         font-size: 1.1rem;
         margin-right: 0.5rem;
     }
