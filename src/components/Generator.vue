@@ -283,7 +283,7 @@ export default {
     }
     #copyButton,
     #smallCopyButton {
-        width: 6rem;
+        min-width: 6rem;
         height: 2.5rem;
         position: relative;
         top: -0.55rem;
