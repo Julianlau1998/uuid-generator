@@ -274,7 +274,7 @@ export default {
     }
     .secondSetting {
         border: 2px solid white;
-        margin-top: 2.55rem;
+        margin-top: 2.45rem;
     }
     #uuid {
         font-size: 3rem;
