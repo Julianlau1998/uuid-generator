@@ -262,23 +262,19 @@ export default {
         background-color: #2a343c;
         width: 8rem;
         cursor: pointer;
+        border-radius: 5px;
     }
     .firstSetting {
         border-top: 2px solid white;
         border-left: 2px solid white;
         border-right: 2px solid white;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
     }
     .firstSettingWithoutShare {
         border-bottom: 2px solid white;
-        border-radius: 5px;
     }
     .secondSetting {
         border: 2px solid white;
-        margin-top: 2.6rem;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        margin-top: 2.55rem;
     }
     #uuid {
         font-size: 3rem;
