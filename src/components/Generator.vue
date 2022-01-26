@@ -12,7 +12,7 @@
         <span @click="linkToGooglePlay()" v-if="settings" class="settings firstSetting" :class="!shareAvailable ? 'firstSettingWithoutShare' : ''">
             Rate This App
         </span>
-        <span @click="recommend()" v-if="settings && shareAvailable" class="settings secondSetting">
+        <span @click="recommend()" v-if="settings" class="settings secondSetting">
             Recommend
         </span>
         <h1 id="uuid">
@@ -276,7 +276,7 @@ export default {
     }
     .secondSetting {
         border: 2px solid white;
-        margin-top: 2.7rem;
+        margin-top: 2.6rem;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
     }
