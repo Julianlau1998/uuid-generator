@@ -9,7 +9,7 @@
             v-if="!iOS"
             @click="settings=!settings"
         ></i>
-        <span @click="linkToGooglePlay()" v-if="settings" class="settings firstSetting">
+        <span @click="linkToGooglePlay()" v-if="settings" class="settings firstSetting" :class="!shareAvailable ? 'firstSettingWithoutShare' : ''">
             Rate This App
         </span>
         <span @click="recommend()" v-if="settings && shareAvailable" class="settings secondSetting">
@@ -264,9 +264,15 @@ export default {
         cursor: pointer;
     }
     .firstSetting {
-        border: 2px solid white;
+        border-top: 2px solid white;
+        border-left: 2px solid white;
+        border-right: 2px solid white;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+    }
+    .firstSettingWithoutShare {
+        border-bottom: 2px solid white;
+        border-radius: 5px;
     }
     .secondSetting {
         border: 2px solid white;
