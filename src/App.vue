@@ -1,16 +1,24 @@
 <template>
   <div id="app">
-    <topNav />
+    <!-- <topNav /> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import topNav from './components/TopNav.vue'
+// import topNav from './components/TopNav.vue'
 export default {
-components: {
-  topNav
-} 
+  components: {
+    // topNav
+  },
+  data () {
+    return {
+       adsenseContent: ''
+    }
+  },
+  mounted () {
+    this.adsenseContent = document.getElementById('divadsensedisplaynone').innerHTML
+  }
 }
 </script>
 
@@ -25,5 +33,27 @@ components: {
 body {
   background-color: rgb(0, 0, 0);
   margin: -0.5rem 0 0 1rem;
+  overflow-x: hidden;
+  background-color: transparent;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#app::-webkit-scrollbar {
+  display: none;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  background-color: transparent;
+  width: 0 !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#app {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  -webkit-overflow-scrolling: touch;
+  background-color: transparent;
 }
 </style>
