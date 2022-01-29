@@ -15,9 +15,6 @@ export default {
     return {
        adsenseContent: ''
     }
-  },
-  mounted () {
-    this.adsenseContent = document.getElementById('divadsensedisplaynone').innerHTML
   }
 }
 </script>

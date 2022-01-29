@@ -10,9 +10,9 @@
             @click="settings=!settings"
         ></i>
         <span @click="linkToGooglePlay()" v-if="settings" class="settings firstSetting" :class="!shareAvailable ? 'firstSettingWithoutShare' : ''">
-            Rate This App
+        Rate This App
         </span>
-        <span @click="recommend()" v-if="settings" class="settings secondSetting">
+        <span @click="recommend()" v-if="settings && shareAvailable" class="settings secondSetting">
             Recommend
         </span>
         <h1 id="uuid">
@@ -253,6 +253,9 @@ export default {
         font-size: 1.5rem;
         cursor: pointer;
     }
+    .settingsWrapper {
+        background-color: #2a343c;
+    }
     .settings {
         position: absolute;
         top: 2.9rem;
@@ -262,19 +265,25 @@ export default {
         background-color: #2a343c;
         width: 8rem;
         cursor: pointer;
-        border-radius: 5px;
     }
     .firstSetting {
-        border-top: 2px solid white;
-        border-left: 2px solid white;
-        border-right: 2px solid white;
+        border-top: 2px solid #eedcff;
+        border-left: 2px solid #eedcff;
+        border-right: 2px solid #eedcff;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
     }
     .firstSettingWithoutShare {
-        border-bottom: 2px solid white;
+        border: 2px solid #eedcff;
+        border-radius: 5px;
     }
     .secondSetting {
-        border: 2px solid white;
+        border-bottom: 2px solid #eedcff;
+        border-left: 2px solid #eedcff;
+        border-right: 2px solid #eedcff;
         margin-top: 2.45rem;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
     #uuid {
         font-size: 3rem;
