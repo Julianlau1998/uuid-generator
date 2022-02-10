@@ -153,7 +153,10 @@ export default {
             this.$refs.copy.style.border = '2px solid #eedcff'
             this.$refs.copy.style.width = '6rem;'
             this.$refs.copy.innerHTML = 'Copied!'
-            await navigator.clipboard.writeText(this.uuid);
+            navigator.clipboard.writeText(this.uuid)
+                .then(() => {
+                    this.NativeAndroid.copyToClipboard("Clipboard API Test");
+                })
         },
         async copyFromAll(uuidIndex) {
             await navigator.clipboard.writeText(this.allUuids[uuidIndex]);
