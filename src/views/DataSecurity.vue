@@ -39,7 +39,14 @@
 
 <script>
 export default {
-
+  metaInfo: {
+      title: 'UUID Generator',
+      titleTemplate: '%s | Data-security',
+      htmlAttrs: {
+        lang: 'en',
+        amp: true
+      }
+    },
 }
 </script>
 
