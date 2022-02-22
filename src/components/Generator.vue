@@ -6,10 +6,9 @@
         </span>
         <i
             class="fas fa-ellipsis-v settings-icon"
-            v-if="!iOS"
             @click="settings=!settings"
         ></i>
-        <span @click="linkToGooglePlay()" v-if="settings" class="settings firstSetting" :class="!shareAvailable ? 'firstSettingWithoutShare' : ''">
+        <span @click="linkToStorePage()" v-if="settings" class="settings firstSetting" :class="!shareAvailable ? 'firstSettingWithoutShare' : ''">
         Rate This App
         </span>
         <span @click="recommend()" v-if="settings && shareAvailable" class="settings secondSetting">
@@ -229,7 +228,11 @@ export default {
                 "text": this.uuid
             })
         },
-        linkToGooglePlay () {
+        linkToStorePage () {
+            if (this.iOS) {
+                window.location.href = 'https://apps.apple.com/de/app/uuids-generator/id1603050260'
+                return
+            }
             window.location.href='https://play.google.com/store/apps/details?id=xyz.appmaker.fdfdjd&gl=DE'
         },
         recommend () {
