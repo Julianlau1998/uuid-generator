@@ -7,12 +7,28 @@
         <i
             class="fas fa-ellipsis-v settings-icon"
             @click="settings=!settings"
-        ></i>
-        <span @click="linkToStorePage()" v-if="settings" class="settings firstSetting" :class="!shareAvailable ? 'firstSettingWithoutShare' : ''">
-        Rate This App
+        />
+        <span
+            @click="linkToStorePage()"
+            v-if="settings"
+            class="settings firstSetting"
+            :class="!shareAvailable ? 'firstSettingWithoutShare' : ''"
+        >
+            Rate This App
         </span>
-        <span @click="recommend()" v-if="settings && shareAvailable" class="settings secondSetting">
+        <span
+            @click="recommend()"
+            v-if="settings && shareAvailable"
+            class="settings secondSetting"
+        >
             Recommend
+        </span>
+        <span
+            @click="makePurchase()"
+            v-if="settings && playBillingSupported"
+            class="settings thirdSetting mt-6"
+        >
+            Support the Developer
         </span>
         <h1 id="uuid">
             <span id="uuidSpan">
@@ -130,11 +146,13 @@ export default {
             error: false,
             shareAvailable: false,
             settings: false,
-            iOS: false
+            iOS: false,
+            playBillingSupported: false
         }
     },
     created () {
         this.uuid = this.$uuid.v4()
+        this.checkPlayBillingAvailable()
         if(navigator.share !== undefined) {
             this.shareAvailable = true
         }
@@ -240,6 +258,38 @@ export default {
                 "title": 'Simply Generate UUIDS with this UUID Generator App',
                 "text": 'https://play.google.com/store/apps/details?id=xyz.appmaker.fdfdjd&gl=DE'
             })
+        },
+        async checkPlayBillingAvailable () {
+            if ('getDigitalGoodsService' in window) {
+            // Digital Goods API is supported!
+                const service = await window.getDigitalGoodsService('https://play.google.com/billing');
+                if (service) {
+                    this.playBillingSupported = true
+                }
+            }
+        },
+        async makePurchase(service, sku) {
+        // Define the preferred payment method and item ID
+            const paymentMethods = [{
+                supportedMethods: "https://play.google.com/billing",
+                data: {
+                    sku: sku,
+                }
+            }]
+            const paymentDetails = {
+                total: {
+                    label: `Total`,
+                    amount: {currency: `USD`, value: `5.49`}
+                }
+            }
+            const request = new PaymentRequest(paymentMethods, paymentDetails);
+            try {
+                const paymentResponse = await request.show();
+                const {purchaseToken} = paymentResponse.details;
+                await service.acknowledge(purchaseToken, 'repeatable');
+            } catch(e) {
+                alert('The Payment option is currently still in development and will soon be available. Please try again later. Thank You for Your support')
+            }
         }
     }
 }
@@ -283,13 +333,19 @@ export default {
         border: 2px solid #eedcff;
         border-radius: 5px;
     }
-    .secondSetting {
+    .secondSetting, .thirdSetting {
         border-bottom: 2px solid #eedcff;
         border-left: 2px solid #eedcff;
         border-right: 2px solid #eedcff;
-        margin-top: 2.45rem;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
+    }
+    .secondSetting {
+        margin-top: 2.45rem;
+        margin-bottom: 0.2rem;
+    }
+    .thirdSetting {
+        margin-top: 4.6rem;
     }
     #uuid {
         font-size: 3rem;
