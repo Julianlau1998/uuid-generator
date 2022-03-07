@@ -147,7 +147,8 @@ export default {
             shareAvailable: false,
             settings: false,
             iOS: false,
-            playBillingSupported: false
+            playBillingSupported: false,
+            digitalGoodsService: null
         }
     },
     created () {
@@ -260,16 +261,26 @@ export default {
             })
         },
         async checkPlayBillingAvailable () {
-            if ('getDigitalGoodsService' in window) {
-            // Digital Goods API is supported!
-                const service = await window.getDigitalGoodsService('https://play.google.com/billing');
-                if (service) {
-                    this.playBillingSupported = true
-                }
+            // if ('getDigitalGoodsService' in window) {
+            // // Digital Goods API is supported!
+            //     const service = await window.getDigitalGoodsService('https://play.google.com/billing');
+            //     if (service) {
+            //         this.playBillingSupported = true
+            //     }
+            // }
+            if (window.getDigitalGoodsService === undefined) {
+                return;
+            }
+            try {
+                this.digitalGoodsService = await window.getDigitalGoodsService("https://play.google.com/billing");
+                this.playBillingSupported = true
+            }
+            catch {
+                this.playBillingSupported = false
             }
         },
         async makePurchase() {
-            const details = await digitalGoodsService.getDetails(['support']);
+            const details = await this.digitalGoodsService.getDetails(['support']);
             const item = details[0];
             new PaymentRequest(
             [{supportedMethods: 'https://play.google.com/billing',
