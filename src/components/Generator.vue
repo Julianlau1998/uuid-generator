@@ -268,7 +268,7 @@ export default {
                 }
             }
         },
-        async makePurchase() {
+        async makePurchase(service) {
         // Define the preferred payment method and item ID
             const paymentMethods = [{
                 supportedMethods: "https://play.google.com/billing",
@@ -284,11 +284,11 @@ export default {
             }
             const request = new PaymentRequest(paymentMethods, paymentDetails);
             try {
-                await request.show();
-                // const {purchaseToken} = paymentResponse.details;
-                // await service.acknowledge(purchaseToken, 'repeatable');
+                const paymentResponse = await request.show();
+                const {purchaseToken} = paymentResponse.details;
+                await service.acknowledge(purchaseToken, 'repeatable');
             } catch(e) {
-                alert('The Payment option is currently still in development and will soon be available. Please try again later. Thank You for Your support')
+                alert('Something went wrong. Please try again.')
             }
         }
     }
