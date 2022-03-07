@@ -269,27 +269,32 @@ export default {
             }
         },
         async makePurchase(service, sku) {
+            const details = await digitalGoodsService.getDetails(['support']);
+            const item = details[0];
+            new PaymentRequest(
+            [{supportedMethods: 'https://play.google.com/billing',
+                data: {itemId: item.itemId}}]);
         // Define the preferred payment method and item ID
-            const paymentMethods = [{
-                supportedMethods: "https://play.google.com/billing",
-                data: {
-                    sku: sku,
-                }
-            }]
-            const paymentDetails = {
-                total: {
-                    label: `Total`,
-                    amount: {currency: `USD`, value: `5.49`}
-                }
-            }
-            const request = new PaymentRequest(paymentMethods, paymentDetails);
-            try {
-                const paymentResponse = await request.show();
-                const {purchaseToken} = paymentResponse.details;
-                await service.acknowledge(purchaseToken, 'repeatable');
-            } catch(e) {
-                alert('The Payment option is currently still in development and will soon be available. Please try again later. Thank You for Your support')
-            }
+            // const paymentMethods = [{
+            //     supportedMethods: "https://play.google.com/billing",
+            //     data: {
+            //         sku: sku,
+            //     }
+            // }]
+            // const paymentDetails = {
+            //     total: {
+            //         label: `Total`,
+            //         amount: {currency: `USD`, value: `5.49`}
+            //     }
+            // }
+            // const request = new PaymentRequest(paymentMethods, paymentDetails);
+            // try {
+            //     const paymentResponse = await request.show();
+            //     const {purchaseToken} = paymentResponse.details;
+            //     await service.acknowledge(purchaseToken, 'repeatable');
+            // } catch(e) {
+            //     alert('The Payment option is currently still in development and will soon be available. Please try again later. Thank You for Your support')
+            // }
         }
     }
 }
