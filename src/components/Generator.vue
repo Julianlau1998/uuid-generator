@@ -268,7 +268,7 @@ export default {
                 }
             }
         },
-        async makePurchase(service, sku) {
+        async makePurchase() {
             const details = await digitalGoodsService.getDetails(['support']);
             const item = details[0];
             new PaymentRequest(
