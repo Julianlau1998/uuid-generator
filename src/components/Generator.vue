@@ -279,7 +279,7 @@ export default {
             const paymentDetails = {
                 total: {
                     label: `Total`,
-                    amount: {currency: `USD`, value: `5.49`}
+                    amount: {currency: `USD`, value: `10.99`}
                 }
             }
             const request = new PaymentRequest(paymentMethods, paymentDetails);
