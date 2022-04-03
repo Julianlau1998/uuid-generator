@@ -77,7 +77,7 @@
             Version 4
         </button>
 
-        <br><br><br>
+        <br><br>
 
         <button
             class="btn-grad-two"
@@ -458,18 +458,20 @@ export default {
         height: 3rem;
         font-size: 1.3rem;
         font-weight: 600;
-        margin-bottom: 1.5rem;
         z-index: 100;
         cursor: pointer;
         color: black;
     }
     .btn-grad {
         width: 15rem;
+        margin-bottom: 1.5rem;
     }
     .btn-grad-two {
         min-width: 11rem;
         font-size: 1.1rem;
         margin-right: 0.5rem;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
     }
 
     .versionButton {
@@ -637,6 +639,15 @@ export default {
         }
         .settings {
             right: 2.4rem;
+        }
+    }
+
+    @media (max-width: 344px) {
+        .btn-grad {
+            margin-top: 3rem;
+        }
+        .btn-grad-two {
+            margin-top: 0rem;
         }
     }
 
