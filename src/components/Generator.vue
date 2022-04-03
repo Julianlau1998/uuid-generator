@@ -381,11 +381,11 @@ export default {
     }
     #copyButton,
     #smallCopyButton {
-        min-width: 6rem;
+        min-width: 5.3rem;
         height: 2.5rem;
         position: relative;
         top: -0.55rem;
-        left: 1.5rem;
+        left: 1.3rem;
         color: lightgray;
         background: transparent;
         border: 3px solid white;
