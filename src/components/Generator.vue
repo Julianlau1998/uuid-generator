@@ -178,6 +178,7 @@ export default {
         async copyFromAll(uuidIndex) {
             await navigator.clipboard.writeText(this.allUuids[uuidIndex]);
             this.$refs[uuidIndex][0].style.border = '2px solid #eedcff'
+            this.$refs[uuidIndex][0].innerHTML = 'Copied!'
         },
         generate () {
             this.$refs.copy.innerHTML = 'Copy'
@@ -207,6 +208,11 @@ export default {
                 }
             } else if (this.amount>=5000) {
                 this.error = true
+            }
+            for (let i=0; i<this.allUuids.length; i++) {
+                if(!this.$refs[i]) return
+                this.$refs[i][0].style.border = '2px solid #ffffff'
+                this.$refs[i][0].innerHTML = 'Copy'
             }
         },
         changeVersion(number) {
