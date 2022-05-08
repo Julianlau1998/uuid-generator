@@ -18,7 +18,7 @@
         </span>
         <span
             @click="recommend()"
-            v-if="settings && shareAvailable"
+            v-if="settings && shareAvailable && !iOS"
             class="settings secondSetting"
         >
             Recommend
