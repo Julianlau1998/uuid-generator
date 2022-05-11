@@ -10,7 +10,7 @@
         />
         <span
             @click="linkToStorePage()"
-            v-if="settings"
+            v-if="settings && !iOS"
             class="settings firstSetting"
             :class="!shareAvailable ? 'firstSettingWithoutShare' : ''"
         >
@@ -18,7 +18,7 @@
         </span>
         <span
             @click="recommend()"
-            v-if="settings && shareAvailable && !iOS"
+            v-if="settings && shareAvailable"
             class="settings secondSetting"
         >
             Recommend
