@@ -4,31 +4,33 @@
         <span class="topnav">
             UUID Generator
         </span>
-        <i
-            class="fas fa-ellipsis-v settings-icon"
-            @click="settings=!settings"
-        />
-        <span
-            @click="linkToStorePage()"
-            v-if="settings && !iOS"
-            class="settings firstSetting"
-            :class="!shareAvailable ? 'firstSettingWithoutShare' : ''"
-        >
-            Rate This App
-        </span>
-        <span
-            @click="recommend()"
-            v-if="settings && shareAvailable"
-            class="settings secondSetting"
-        >
-            Recommend
-        </span>
-        <span
-            @click="makePurchase()"
-            v-if="settings && playBillingSupported"
-            class="settings thirdSetting mt-6"
-        >
-            Support the Developer
+        <span v-if="!iOS">
+          <i
+              class="fas fa-ellipsis-v settings-icon"
+              @click="settings=!settings"
+          />
+          <span
+              @click="linkToStorePage()"
+              v-if="settings && !iOS"
+              class="settings firstSetting"
+              :class="!shareAvailable ? 'firstSettingWithoutShare' : ''"
+          >
+              Rate This App
+          </span>
+          <span
+              @click="recommend()"
+              v-if="settings && shareAvailable"
+              class="settings secondSetting"
+          >
+              Recommend
+          </span>
+          <span
+              @click="makePurchase()"
+              v-if="settings && playBillingSupported"
+              class="settings thirdSetting mt-6"
+          >
+              Support the Developer
+          </span>
         </span>
         <h1 id="uuid">
             <span id="uuidSpan">
