@@ -148,24 +148,20 @@ export default {
             error: false,
             shareAvailable: false,
             settings: false,
-            iOS: false,
             playBillingSupported: false
         }
+    },
+    computed: {
+      iOS () {
+        return window.webkit
+      }
     },
     created () {
         this.uuid = this.$uuid.v4()
         this.checkPlayBillingAvailable()
         if(navigator.share !== undefined) {
-            this.shareAvailable = true
+          this.shareAvailable = true
         }
-        this.iOS = [
-                'iPad Simulator',
-                'iPhone Simulator',
-                'iPod Simulator',
-                'iPad',
-                'iPhone',
-                'iPod'
-            ].includes(navigator.platform) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     },
     methods: {
         async copy () {
@@ -372,7 +368,7 @@ export default {
     }
     .bottom-part {
         position: absolute;
-        top: 10rem;
+        top: 9.5rem;
         left: 0;
         padding-top: 10rem;
         width: 100vw;
