@@ -153,7 +153,7 @@ export default {
     },
     computed: {
       iOS () {
-        return window.webkit
+        return true
       }
     },
     created () {
