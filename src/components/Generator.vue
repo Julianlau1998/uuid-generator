@@ -34,8 +34,8 @@
         </span>
         <h1 id="uuid">
             <span id="uuidSpan">
-                {{uuid}} 
-            </span>  
+                {{uuid}}
+            </span>
             <button
                 id="copyButton"
                 @click="copy()"
@@ -96,7 +96,7 @@
             v-model="amount"
             @keydown.enter="generateMultple()"
         >
-        <span 
+        <span
             class="error"
             v-if="error"
         >
@@ -109,7 +109,7 @@
             @click="createPDF()"
             v-if="allUuids.length>0"
             id="download"
-        >   
+        >
             Download as PDF <img src="../../public/img/download.png" alt="download icon" id="downloadIcon">
         </span>
 
@@ -193,7 +193,7 @@ export default {
         generateMultple () {
             if (this.amount < 5000) {
                 this.error=false
-                this.allUuids = [] 
+                this.allUuids = []
                 for (let i=0; i<this.amount; i++) {
                     switch (this.version) {
                         case "1":
@@ -226,7 +226,7 @@ export default {
         },
         createPDF () {
             if (this.allUuids.length>0){
-                let pdfName = `${this.amount}UUIDs`; 
+                let pdfName = `${this.amount}UUIDs`;
                 let doc = new jsPDF()
 
                 let uuidString = ''
@@ -241,8 +241,8 @@ export default {
                         doc.addPage()
                     }
                 }
-                doc.save(pdfName + '.pdf');  
-            } 
+                doc.save(pdfName + '.pdf');
+            }
         },
         share () {
             navigator.share({
@@ -377,9 +377,10 @@ export default {
         z-index: 1;
 
     }
+    #copyButton {
+    }
     #copyButton,
     #smallCopyButton {
-        min-width: 5.3rem;
         height: 2.5rem;
         position: relative;
         top: -0.55rem;
@@ -399,7 +400,6 @@ export default {
         border: 2px solid #eedcff;
     }
     #smallCopyButton {
-        width: 5.5rem;
         height: 2rem;
         top: 0;
         border: 2px solid white;
@@ -423,7 +423,7 @@ export default {
         height: 2.2rem;
         position: relative;
         top: 0.8rem;
-    } 
+    }
 
     /* .btn-grad {
         background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%)
@@ -435,7 +435,7 @@ export default {
         text-transform: uppercase;
         transition: 0.5s;
         background-size: 200% auto;
-        color: white;            
+        color: white;
         box-shadow: 0 0 3px #eee;
         border-radius: 10px;
         cursor: pointer;
@@ -549,7 +549,7 @@ export default {
             text-transform: uppercase;
             transition: 0.5s;
             background-size: 200% auto;
-            color: white;            
+            color: white;
             box-shadow: 0 0 2px #eee;
             border-radius: 10px;
             cursor: pointer;
@@ -560,7 +560,7 @@ export default {
             color: #fff;
             text-decoration: none;
           } */
-    
+
     @media (max-width: 1110px) {
         .share {
             top: 1.5rem;
@@ -598,7 +598,6 @@ export default {
             top: -3.8rem;
         }
         #smallCopyButton {
-            width: 3.5rem;
             height: 1.7rem;
             font-size: 1rem;
         }
@@ -649,5 +648,5 @@ export default {
         }
     }
 
-         
+
 </style>
