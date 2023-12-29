@@ -24,13 +24,6 @@
           >
               Recommend
           </span>
-          <span
-              @click="makePurchase()"
-              v-if="settings && playBillingSupported"
-              class="settings thirdSetting mt-6"
-          >
-              Support the Developer
-          </span>
         </span>
         <h1 id="uuid">
             <span id="uuidSpan">
@@ -148,7 +141,8 @@ export default {
             error: false,
             shareAvailable: false,
             settings: false,
-            playBillingSupported: false
+            playBillingSupported: false,
+            clickedGenerate: 0
         }
     },
     computed: {
@@ -158,13 +152,35 @@ export default {
     },
     created () {
         this.uuid = this.$uuid.v4()
-        this.checkPlayBillingAvailable()
         if(navigator.share !== undefined) {
           this.shareAvailable = true
         }
+
+        this.clickedGenerate = parseInt(localStorage.getItem('clickedGenerate'))
+        if(this.clicks == null || isNaN(this.clicks)) {
+            this.clicks = 0
+        }
     },
     methods: {
+        addClick () {
+            this.clicks++
+            localStorage.setItem('clicked', this.clickedGenerate)
+
+            if(this.clicks > 4) {
+                this.clicks = 0
+                localStorage.setItem('clicked', 0)
+                this.showInterstitial()
+            }
+        },
+        showInterstitial () {
+          if (this.iOS) {
+            window.webkit.messageHandlers.showInterstitial.postMessage({
+              "message": 'showInterstitial'
+            })
+          }
+        },
         async copy () {
+            this.addClick()
             this.$refs.copy.style.border = '2px solid #eedcff'
             this.$refs.copy.style.width = '6rem;'
             this.$refs.copy.innerHTML = 'Copied!'
@@ -174,11 +190,13 @@ export default {
                 })
         },
         async copyFromAll(uuidIndex) {
+            this.addClick()
             await navigator.clipboard.writeText(this.allUuids[uuidIndex]);
             this.$refs[uuidIndex][0].style.border = '2px solid #eedcff'
             this.$refs[uuidIndex][0].innerHTML = 'Copied!'
         },
         generate () {
+            this.addClick()
             this.$refs.copy.innerHTML = 'Copy'
             this.$refs.copy.style.border = '3px solid white'
             switch (this.version) {
@@ -262,38 +280,6 @@ export default {
                 "title": 'Simply Generate UUIDS with this UUID Generator App',
                 "text": 'https://play.google.com/store/apps/details?id=xyz.appmaker.fdfdjd&gl=DE'
             })
-        },
-        async checkPlayBillingAvailable () {
-            if ('getDigitalGoodsService' in window) {
-            // Digital Goods API is supported!
-                const service = await window.getDigitalGoodsService('https://play.google.com/billing');
-                if (service) {
-                    this.playBillingSupported = true
-                }
-            }
-        },
-        async makePurchase(service) {
-        // Define the preferred payment method and item ID
-            const paymentMethods = [{
-                supportedMethods: "https://play.google.com/billing",
-                data: {
-                    sku: 'support',
-                }
-            }]
-            const paymentDetails = {
-                total: {
-                    label: `Total`,
-                    amount: {currency: `USD`, value: `10.99`}
-                }
-            }
-            const request = new PaymentRequest(paymentMethods, paymentDetails);
-            try {
-                const paymentResponse = await request.show();
-                const {purchaseToken} = paymentResponse.details;
-                await service.acknowledge(purchaseToken, 'repeatable');
-            } catch(e) {
-                alert('Something went wrong. Please try again.')
-            }
         }
     }
 }
