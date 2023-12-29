@@ -116,7 +116,7 @@
         <ul v-for="(uuid, uuidIndex) in allUuids" :key="uuidIndex" id="idList">
             <li>
                 <span id="listUuid">
-                    {{uuid.substr(0,30)}}...
+                    {{uuid.substr(0,24)}}...
                 </span>
                 <button
                     id="smallCopyButton"
