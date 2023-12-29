@@ -100,7 +100,7 @@
 
         <span
             @click="createPDF()"
-            v-if="allUuids.length>0"
+            v-if="allUuids.length>0 && !iOS"
             id="download"
         >
             Download as PDF <img src="../../public/img/download.png" alt="download icon" id="downloadIcon">
