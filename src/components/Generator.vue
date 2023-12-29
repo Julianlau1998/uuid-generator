@@ -156,7 +156,7 @@ export default {
           this.shareAvailable = true
         }
 
-        this.clickedGenerate = parseInt(localStorage.getItem('clickedGenerate'))
+        this.clicks = parseInt(localStorage.getItem('clickedGenerate'))
         if(this.clicks == null || isNaN(this.clicks)) {
             this.clicks = 0
         }
